@@ -1,6 +1,7 @@
 Google Data Analytics Capstone Project: Case Study 1
 # Cyclistic
 ## How does a bike-share navigate a speedy success
+![Screenshot 2024-05-07 1 16 07 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/e265eb53-2e21-4a7b-8149-a96431376189)
 
 
 ### INTRODUCTION
@@ -25,8 +26,10 @@ From the answer of the above question, my team will design a new marketing strat
 ### PREPARE
 In this phase, I downloaded the data and stored it appropriately. I have also identified how the data is organized. I have sorted and filtered the data to check and determined the credibility of the data. 
 The data is downloaded from the following [link](https://divvy-tripdata.s3.amazonaws.com/index.html). It has been made available by Motivate International Inc. under this [license](https://www.divvybikes.com/data-license-agreement). As per guidelines, I need to use last 12 months data for this case study. I, therefore, have downloaded data from April 2023 to March 2024. There were 12 individual monthly zip files which I have saved in a folder of my google drive.
+![Screenshot 2024-04-30 11 20 22 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/8d3294f5-1319-47f2-87f9-0f46eea84e21)
 
 Once unzip, there were 12 individual CSV files which I analyzed for getting required insight. Each CSV file is structured in rows and columns.
+![Screenshot 2024-05-02 3 05 04 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/6db6a9a3-bda0-4a56-990f-25c8dc913994)
 
 I opened the CSV file one after another to check its ROCCC (reliable, original, comprehensive, current, cited). The data is from open sourced and first source (from the company itself), anonymised, unbiased and latest. It is also complete and accurate. Hence it is reliable, original, current and cited data to work with. It is also comprehensive which contains all the critical information to answer the business task.
 ### PROCESS
@@ -53,63 +56,47 @@ Oct 2023 (named “202310-divvy-tripdata”)
 To tackle this issue, I made a bucket in “Google Cloud Storage” and uploaded those 6 files over there. Later, I imported those files in BigQuery from Google Cloud Storage.
 #### Check the data for organizations
 I checked the schema of all the tables in BigQuery to see how these were organized. I found that there were 13 identical columns in all the tables. So, the tables were identical in structure and they were organized as below.
+![Screenshot 2024-05-03 8 17 15 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/066e9767-fd90-4276-9f02-a835592ea77e)
 
 #### Merge the data
 There were 12 identical structured CSV files uploaded in BigQuery in a dataset named “case_study_1_cyclistics”. I used SQL Query to merge these data in a single table named “combined_12m_data”.
+![Screenshot 2024-05-03 8 32 19 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/8950bb12-4e69-4edd-b07f-c292ece1e7f0)
 
 The combined table contains 5,750,177 rows - I got the information from the bottom part of “PREVIEW” tab as below:
+![Screenshot 2024-05-03 8 30 00 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/f85c13ba-0e0f-4351-9523-62f2b5cff884)
 
 To double check, I have also used SQL query as below. As expected, I got the same result.
+![Screenshot 2024-05-03 10 16 11 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/9ba5f885-edb9-4f44-ab62-7efcfa741a28)
 
 #### Check the data for errors
 I have used SQL query to check the new combined table, “combined_12m_data”, to find null values.
+![Screenshot 2024-05-03 10 13 36 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/ded020c2-9dd8-4072-a954-8ca0caf5de94)
 
 To make the above query result more readable, I have given this in below long tabular form:
-Column Name
-Number of Null Value
-ride_id
-0
-rideable_type
-0
-started_at
-0
-ended_at
-0
-start_station_name
-874450
-start_station_id
-874450
-end_station_name
-929226
-end_station_id
-929226
-start_lat
-0
-start_lng
-0
-end_lat
-7566
-end_lng
-7566
-member_casual
-0
+![Screenshot 2024-05-07 11 52 59 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/4047cd6f-36a7-4c50-8b02-2dcb5839c2c2)
 
 There were 15.3% null values which was really significant. However, I have decided to kept all the data into consideration for my analysis due to below reasons:
-The data may lose reliability and representativeness if I delete this large amount of data from the record.
-The columns where null value existed will not affect the data quality.
-It’s not going to impact my analysis considering the business task I’m dealing with.
+- The data may lose reliability and representativeness if I delete this large amount of data from the record.
+- The columns where null value existed will not affect the data quality.
+- It’s not going to impact my analysis considering the business task I’m dealing with.
 I have also checked data through SQL query to know whether there’s any data duplication. I found no duplicate records in the new combined table.
+![Screenshot 2024-05-03 9 54 33 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/938f01ef-d68e-4578-b49b-4d3745601af9)
 
 The above was also confirmed through below SQL query:
+![Screenshot 2024-05-03 9 57 25 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/259e2590-fa8d-434e-aefd-69f18064df13)
 
 I also checked the length of the ride_id column and have found a unique character length as below:
+![Screenshot 2024-05-04 1 08 14 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/34e39e0e-10b9-49ff-a68d-0c9a8e549ff3)
 
 We can consider the ride_id column as primary id because it shows no duplicate, no null value, unique value and unique character length.
 I have checked the unique values of rideable_type column and found 3 unique values as below:
+![Screenshot 2024-05-04 1 18 07 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/c598e2d5-5543-4556-9e51-0d71fd4b0ec8)
 
 As below, I have identified the TIMESTAMP of the records at started_at and ended_at columns. It was YYYY-MM-DD hh:mm:ss UTC
+![Screenshot 2024-05-04 1 45 16 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/90f3df93-3f34-48a4-b3bf-2931956adbd0)
 
 I have checked the unique values of member_casual column and found 2 unique values as below:
+![Screenshot 2024-05-04 1 50 52 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/2f4ed59b-d933-4b7d-aeeb-defa5b4e7630)
 
 #### Creating new table for analysis
 I have created a new table for analysis. For creating this table, I have gone through below activities:
@@ -121,76 +108,91 @@ month ~ to determine the “month of the bike rides”
 hour ~ to determine the “hour of the bike rides”
 I have planned to keep the table cleaned from illogical ride length (zero and negative value in ride length)
 The SQL query below was used to execute the above plan and to create the new table  - it was named “combined_12m_data_processed”.
+![Screenshot 2024-05-04 10 57 00 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/fa2e12f4-1884-4d8f-888b-d2a9a3fafca2)
 
 ### ANALYZE
 The new data table was stored appropriately in my dataset of BigQuery. So, it was cleaned, organized with useful data, formatted and readily accessible. So, in this phase, I will perform calculations to identify trends and relationships which will eventually facilitate me to complete my business task.
 I have calculated the total number of rides, total length of rides, average length of rides, maximum ride length, and minimum ride length. This was done considering below grouping:
-member_casual
-member_casual, rideable_type
-member_casual, month
-member_casual, day_of_week
-member_casual, hour
-member_casual, start_station_name
+- member_casual
+- member_casual, rideable_type
+- member_casual, month
+- member_casual, day_of_week
+- member_casual, hour
+- member_casual, start_station_name
 #### Group by → member_casual
 SQL query and glimpse of result was as below:
+![Screenshot 2024-05-05 12 02 50 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/e1fcf144-b5fc-422a-a063-6425a5e2207b)
 
 Members were availing the more number of rides. But the average ride length was significantly higher for Casual Riders. This makes the total ride length higher for the Casual Riders for the entire period.
 #### Group by → member_casual | rideable_type
 SQL query and glimpse of result was as below:
+![Screenshot 2024-05-05 12 17 26 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/602607f4-b5b4-4de8-adf4-e641fcac00a8)
 
 Members don’t use docked_bike at all and they like classic_bike most.
 Casual Riders take electric_bike mostly but for shorter trip duration and they use classic_bike for longer trip duration.
 #### Group by → member_casual | month
 SQL query and glimpse of result was as below:
+![Screenshot 2024-05-05 12 38 04 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/a3191322-bd13-4c73-b7f6-899b7b10be0d)
 
 Members used rides mostly in August and least in January. Their average trip durations across the months were very close (11.2 ~ 13.7 min).
 Casual Riders used mostly in July and least in January. Their average trip durations across the months varied greatly (19.9 ~ 35.6 min).
 #### Group by → member_casual | day_of_week
 SQL query and glimpse of result was as below:
+![Screenshot 2024-05-05 12 53 48 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/c361e049-8029-4d1b-b036-9c16fbd7a609)
 
 Members took most of the rides on Thursday which was closely followed by Wednesday. Their use was significantly lower on Sunday, which is the weekend.
 Casual Riders took most of the rides on Saturday, which is just before the weekend. Their use was lowest on Monday, the first day of the week.
 #### Group by → member_casual | hour
 SQL query and glimpse of result was as below:
-
+![Screenshot 2024-05-05 1 08 12 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/cde04d7a-49c1-4fd2-9a6a-411a96df6944)
+![Screenshot 2024-05-05 1 09 37 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/8514d523-bbc3-4c71-b49c-50a4ed8d546c)
 
 Members took most of the rides at 17 hours - their most trips were between 15 to 18 hours. And, they took the least of the rides at 4 hours - their least trips were between 3 to 4 hours.
 Casual Riders also took most of the rides at 17 hours - their most trips were between 15 to 18 hours like Members. And, like Members, they took the least of the rides at 4 hours - their least trips were between 3 to 4 hours.
 #### Group by → member_casual | start_station_name
 SQL query and glimpse of result was as below:
+![Screenshot 2024-05-05 1 33 20 AM](https://github.com/CMMKabir/cyclistics/assets/161144452/b978a061-8630-4fb9-b53a-f588a214afcc)
 
 For Members, most of the trips started from 2 stations - “Clinton St & Washington Blvd” and “Kingsbury St & Kinzie St”.
 For Casual Riders, most of the trips started from “Streeter Dr & Grand Ave”. 
 ### SHARE
 I have gained insights from my analysis in the earlier step. In this step, I have created visualizations using Tableau to share my findings. I have done it with utmost care because the Director of Marketing, Lily Moreno, was expecting sophisticated and polished work in order to effectively communicate to the executive team.
 In the beginning, I compared who used the rides most in terms of number of rides and time (in minutes).
+![Sheet 1 (1)](https://github.com/CMMKabir/cyclistics/assets/161144452/eb7c25d6-5228-404f-b6bf-b72373a601ce)
 
 Members used bikes more frequently compared to Casual riders; but the latter tend to use bikes for a longer time period even with the less number of rides. Average ride length for Casual riders were significantly higher (2.3x).
 Next, I compared their bike type selection for their rides in below section:
+![Sheet 1 (2)](https://github.com/CMMKabir/cyclistics/assets/161144452/9abdb49a-37e0-430d-a104-4f92bea76996)
 
 In terms of total rides, Classic bikes and Electric bikes were with almost equal preference both for Members and Casual riders. Classic bikes were a higher choice for Members and Electric bikes were a higher choice for Casual riders.
 Interestingly, average ride length for Casual riders in Classic bikes was significantly higher from Electric bikes (2.3x). It was also significantly higher from Classic bikes of Members (2.3x).
 Docked bikes were only used by Casual riders in a few instances (3.5%); but its average ride length was awfully high. Members never used this bike in the year.
 I have compared the user behavior over the quarters in below section:
+![Sheet 1 (7)](https://github.com/CMMKabir/cyclistics/assets/161144452/262ca136-6416-452c-a845-68e67d5bfe00)
 
 For both Members and Casual riders, 3rd quarter was the most frequent using period closely followed by 2nd quarter and thereafter followed by 4th quarter.
 Average ride length was similar in all the quarters for Members (11.46 ~ 13.38); but it varied a lot for Casual riders (21.50 ~ 31.55).
 I have checked the use pattern over the months in below section:
+![Sheet 1 (3)](https://github.com/CMMKabir/cyclistics/assets/161144452/22f4c005-f86d-4502-9d91-1626f6233683)
 
 There was a pure trend here. Use frequency increased over the month consistently and reached its maximum in July for Casual riders and in August for Members. Later the frequency started decreasing consistently and reached its minimum in January.
 Average ride length was similar and consistent for Members (11.2 ~ 13.72); but it varied a great deal for Casual riders (19.86 ~ 35.60).
 Use pattern was also identified across the days of the week.
+![Sheet 1 (4)](https://github.com/CMMKabir/cyclistics/assets/161144452/6e344d34-19f6-412d-9ecb-003f66c284de)
 
 For Casual riders, use frequency was higher during weekend (Sunday) and the day before the weekend (Saturday); it was simply opposite for Members.
 Average ride length was also high for Casual riders in the above mentioned pick days; whereas it’s consistently similar across the days for Members.
 For Members, use frequency was higher in the middle of the weekdays (Tuesday ~ Thursday). 
 The difference from highest to lowest use was slim (32%) for Members, and it’s higher (44%) for Casual riders. 
 I have also evaluated the use pattern across the hours of the day in below section:
+![Sheet 1 (6)](https://github.com/CMMKabir/cyclistics/assets/161144452/69cf47ab-8f0c-49a1-9c31-33dae45b00ca)
 
 For both Members and Casual riders, the top-6 busy hours for initiating rides were 14 hours ~ 19 hours; and top-3 busy hours were 16 hours ~ 18 hours. The top most busy hour was 17 hours for both user groups.
 I have also identified a similar heat map in terms of the journey start station, as below.
+![Screenshot 2024-05-06 3 45 39 PM](https://github.com/CMMKabir/cyclistics/assets/161144452/2abdb449-3706-470e-8681-287f215485df)
 
 And, the top origin stations are as per below section:
+![Dashboard 2 (1)](https://github.com/CMMKabir/cyclistics/assets/161144452/408b07fc-1cfe-4001-9186-745a46a6cd7e)
 
 For Members, some of the most frequent origin stations were - Clinton St & Washington Blvd, Kingsbury St & Kinzie St, Clark St & Elm St, Clinton St & Madison St, Wells St & Concord Ln, etc.
 For Casual riders, some of the most frequent origin stations were - Streeter Dr & Grand Ave, DuSable Lake Shore Dr & Monroe St, Michigan Ave & Oak St, DuSable Lake Shore Dr & North Blvd, Millennium Park, etc.
