@@ -24,7 +24,7 @@ How do casual riders and annual members use Cyclistic bikes differently?
 From the answer of the above question, my team will design a new marketing strategy to convert casual riders into annual members; because, the director of marketing, Lily Moreno, believes the company’s future success depends on maximizing the number of annual memberships. 
 ### PREPARE
 In this phase, I downloaded the data and stored it appropriately. I have also identified how the data is organized. I have sorted and filtered the data to check and determined the credibility of the data. 
-The data is downloaded from the following link. It has been made available by Motivate International Inc. under this license. As per guidelines, I need to use last 12 months data for this case study. I, therefore, have downloaded data from April 2023 to March 2024. There were 12 individual monthly zip files which I have saved in a folder of my google drive.
+The data is downloaded from the following [link](https://divvy-tripdata.s3.amazonaws.com/index.html). It has been made available by Motivate International Inc. under this [license](https://www.divvybikes.com/data-license-agreement). As per guidelines, I need to use last 12 months data for this case study. I, therefore, have downloaded data from April 2023 to March 2024. There were 12 individual monthly zip files which I have saved in a folder of my google drive.
 
 Once unzip, there were 12 individual CSV files which I analyzed for getting required insight. Each CSV file is structured in rows and columns.
 
